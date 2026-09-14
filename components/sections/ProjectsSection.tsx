@@ -148,41 +148,15 @@ export function ProjectsSection({ imagesAvailable }: ProjectsSectionProps) {
         return;
       }
 
-          gsap.set(lines, { yPercent: 100 });
-          gsap.set(projectEls, { autoAlpha: 0 });
-          gsap.set(allContent, { autoAlpha: 0, y: "1.2rem" });
-          gsap.set(allMedia, { clipPath: "inset(0% 0% 0% 0%)" });
-          gsap.set(allSurfaces, { scale: 1.05 });
-
-          gsap.timeline({
-            defaults: { ease: "power3.out" },
-            scrollTrigger: { trigger: section, start: "top 75%", once: true },
-          })
-            .fromTo(label, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, duration: 0.5, y: 0 })
-            .to(lines, { duration: 0.7, stagger: 0.12, yPercent: 0 }, "-=0.3");
-
-          projectParts.forEach((part) => {
-            const content = [part.counter, part.name, part.meta];
-
-            gsap.timeline({
-              defaults: { ease: "power3.out" },
-              scrollTrigger: { trigger: part.root, start: "top 78%", once: true },
-            })
-              .to(part.root, { autoAlpha: 1, duration: 0.5 })
-              .to(content, { autoAlpha: 1, duration: 0.5, stagger: 0.08, y: 0 }, "-=0.3")
-              .to(part.surface, { duration: 0.9, scale: 1 }, "-=0.5");
-          });
-
-          gsap.fromTo(
-            outro,
-            { autoAlpha: 0, y: 14 },
-            {
-              autoAlpha: 1,
-              duration: 0.5,
-              y: 0,
-              scrollTrigger: { trigger: outro, start: "top 85%", once: true },
-            },
-          );
+      // On touch-sized layouts every project is part of the normal document
+      // flow. Keeping these states static avoids stale ScrollTrigger geometry
+      // after orientation changes and guarantees that content stays visible.
+      gsap.set([label, heading, outro, ...allContent], { autoAlpha: 1, x: 0, y: 0 });
+      gsap.set(lines, { yPercent: 0 });
+      gsap.set(projectEls, { autoAlpha: 1 });
+      gsap.set(allMedia, { clipPath: "inset(0% 0% 0% 0%)" });
+      gsap.set(allSurfaces, { scale: 1 });
+      gsap.set(shade, { autoAlpha: 0 });
     },
     { scope: sectionRef },
   );

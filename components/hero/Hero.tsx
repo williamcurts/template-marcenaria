@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useRef } from "react";
+import { WHATSAPP_URL } from "@/lib/contact";
 import styles from "./Hero.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -98,7 +99,9 @@ export function Hero() {
         <nav className={styles.navigation} aria-label="Navegação principal">
           <a href="#projetos">PROJETOS</a><a href="#processo">PROCESSO</a><a href="#materia">ATELIÊ</a><a href="#contato">CONTATO</a>
         </nav>
-        <a className={styles.projectLink} href="#contato">INICIAR PROJETO <span aria-hidden="true">↗</span></a>
+        <a className={styles.projectLink} href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+          INICIAR PROJETO <span aria-hidden="true">↗</span>
+        </a>
         <button className={styles.menuButton} type="button" aria-label="Abrir menu" aria-expanded="false"><span /><span /></button>
       </header>
 

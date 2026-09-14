@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { WHATSAPP_URL } from "@/lib/contact";
 import styles from "./CtaSection.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -20,10 +21,9 @@ export function CtaSection() {
       const lines = section.querySelectorAll<HTMLElement>("[data-cta-line]");
       const support = section.querySelector<HTMLElement>("[data-cta-support]");
       const cta = section.querySelector<HTMLElement>("[data-cta-link]");
-      const footer = section.querySelector<HTMLElement>("[data-cta-footer]");
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set([eyebrow, support, cta, footer], { autoAlpha: 1, x: 0, y: 0 });
+        gsap.set([eyebrow, support, cta], { autoAlpha: 1, x: 0, y: 0 });
         gsap.set(lines, { yPercent: 0 });
         return;
       }
@@ -37,15 +37,14 @@ export function CtaSection() {
         .fromTo(eyebrow, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, duration: 0.55, y: 0 })
         .to(lines, { duration: 1, stagger: 0.18, yPercent: 0 }, "-=0.25")
         .fromTo(support, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, duration: 0.6, y: 0 }, "-=0.5")
-        .fromTo(cta, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, duration: 0.6, y: 0 }, "-=0.35")
-        .fromTo(footer, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, duration: 0.55, y: 0 }, "-=0.3");
+        .fromTo(cta, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, duration: 0.6, y: 0 }, "-=0.35");
     },
     { scope: sectionRef },
   );
 
   return (
     <section ref={sectionRef} id="contato" className={styles.section} aria-labelledby="cta-heading">
-      <p className={styles.eyebrow} data-cta-eyebrow>07 / CONTATO</p>
+      <p className={styles.eyebrow} data-cta-eyebrow>08 / CONTATO</p>
 
       <div className={styles.main}>
         <h2 id="cta-heading" className={styles.heading}>
@@ -58,15 +57,11 @@ export function CtaSection() {
           O restante começa com uma conversa.
         </p>
 
-        <a className={styles.cta} data-cta-link href="#contato">
+        <a className={styles.cta} data-cta-link href={WHATSAPP_URL} target="_blank" rel="noreferrer">
           <span>INICIAR PROJETO</span><i aria-hidden="true" /><b aria-hidden="true">↗</b>
         </a>
       </div>
 
-      <footer className={styles.footer} data-cta-footer>
-        <p className={styles.brandTag}>PADRÃO REFINATTO<br />MARCENARIA</p>
-        <p className={styles.rights}>© 2026 PADRÃO REFINATTO<br />TODOS OS DIREITOS RESERVADOS</p>
-      </footer>
     </section>
   );
 }

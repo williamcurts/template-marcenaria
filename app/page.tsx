@@ -8,6 +8,8 @@ import { MaterialSection } from "@/components/sections/MaterialSection";
 import { PrecisionSection } from "@/components/sections/PrecisionSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { ReviewsSection } from "@/components/sections/ReviewsSection";
+import { SiteFooter } from "@/components/sections/SiteFooter";
 
 export default function Home() {
   const cabinetModelAvailable = existsSync(path.join(process.cwd(), "public", "models", "refinatto-cabinet.glb"));
@@ -35,7 +37,9 @@ export default function Home() {
       <FeaturedProjectSection imageAvailable={featuredProjectImageAvailable} />
       <ProcessSection stageImagesAvailable={stageImagesAvailable} />
       <ProjectsSection imagesAvailable={projectImagesAvailable} />
+      <ReviewsSection />
       <CtaSection />
+      <SiteFooter />
     </main>
   );
 }
